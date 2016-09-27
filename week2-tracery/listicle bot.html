@@ -1,0 +1,19 @@
+<script src="../lib/tracery.js"></script>
+<script src="../lib/mousetrap.min.js"></script>
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<h1>Text will go here</h1>
+<button onclick="generate()">Generate</button>
+<script>
+var grammarObj = {
+	"S": ["#number# #adjective# #thing# that will make you want to #action#"],
+	"number": ["11", "2", "4", "127", "1,000,000", "A handful of","a baker's dozen", "42", "23", "-400", "17", "8", "91", "56", "3/4"],
+	"thing": ["things", "elephant tattoos", "mimes", "gourds", "slow lorii", "reasons", "travel mugs", "kitchen products", "life hacks", "lawn Santas", "Cubano pork sandwiches", "habits"],
+	"adjective": ["incredible", "simple", "hilarious", "perfect", "fiscally-responsible", "critical", "badass", "heartbreaking"],
+	"action": ["defund planned parenthood","commit tax fraud","steal a baby","become a mime", "curl up in the fetal position", "actively seek the void", "enter the Kingdom of Heaven", "start for the Dallas Cowboys", "resent your parents", "put your birth certificate into a crock pot", "call the insurance company and put your lizard on the phone","starve","renew your subscription","birdwatch", "pretend to be at the Alamo", "steal TVs"]
+	}
+var grammar = tracery.createGrammar(grammarObj)
+function generate(){
+	var t = grammar.flatten("#S#");
+	$('h1').text(t);
+}
+</script>
