@@ -1,0 +1,71 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<script src="../lib/markov.js"></script>
+<script>
+var txt;
+var upspaceGen = new MarkovGeneratorWord(2,100)
+var hereGen = new MarkovGeneratorWord(2,30)
+var roseGen = new MarkovGeneratorWord(2,250)
+var thornGen = new MarkovGeneratorWord(2,225)
+var financeGen = new MarkovGeneratorWord(2,100)
+var grantGen = new MarkovGeneratorWord(2,125)
+var spaymayGen = new MarkovGeneratorWord(2,120)
+var safetyGen = new MarkovGeneratorWord(1,115)
+var businessGen = new MarkovGeneratorWord(2,350)
+$.get("here.txt", function(text) {
+     hereGen.feed(text);
+
+});
+$.get("roses.txt", function(text) {
+     roseGen.feed(text);
+
+});
+$.get("thorns.txt", function(text) {
+     thornGen.feed(text);
+
+});
+$.get("upspace.txt", function(text) {
+     upspaceGen.feed(text);
+
+});
+$.get("finances.txt", function(text) {
+     financeGen.feed(text);
+
+});
+$.get("grants.txt", function(text) {
+     grantGen.feed(text);
+
+});
+$.get("spaymay.txt", function(text) {
+     spaymayGen.feed(text);
+
+});
+$.get("business.txt", function(text) {
+     businessGen.feed(text);
+
+});
+$.get("safety.txt", function(text) {
+     safetyGen.feed(text);
+
+});
+
+function generate(){
+	var hereSays = hereGen.generate()
+	$('body').append("<p><b>HERE: </b>"+hereSays+"</p>")
+	var roseSays = roseGen.generate()
+	$('body').append("<p><b>ROSES: </b>"+roseSays+"</p>")
+	var thornSays = thornGen.generate()
+	$('body').append("<p><b>THORNS: </b>"+thornSays+"</p>")
+	var upspaceSays = upspaceGen.generate()
+	$('body').append("<p><b>UPSPACE: </b>"+upspaceSays+"</p>")
+	var financeSays = financeGen.generate()
+	$('body').append("<p><b>FINANCES: </b>"+financeSays+"</p>")
+	var grantSays = grantGen.generate()
+	$('body').append("<p><b>GRANTS: </b>"+grantSays+"</p>")
+	var spaymaySays = spaymayGen.generate()
+	$('body').append("<p><b>SPACE MAINTENANCE: </b>"+spaymaySays+"</p>")
+	var businessSays = businessGen.generate()
+	$('body').append("<p><b>BUSINESS: </b>"+businessSays+"</p>")
+}
+</script>
+
+<button onclick="generate()">Generate</button>
