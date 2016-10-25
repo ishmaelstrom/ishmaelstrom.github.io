@@ -1,0 +1,82 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<script src="../lib/mousetrap.min.js"></script>
+<script src="../lib/tracery.js"></script>
+<script src="../lib/markov.js"></script>
+
+
+<style>
+body{ 
+background: no-repeat center center ; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+h1 {
+	text-align: center;
+	color: 	#FFFFFF;
+	text-shadow: 4px 4px #000000;
+	font-family: Century Gothic;
+	font-size: 4em;
+	margin-top: 15%;
+}
+h2 {
+	text-align: center;
+	color: 	#FFFFFF;
+	text-shadow: 4px 4px #000000;
+	font-family: Arial;
+	font-size: 2em;
+	margin-top: 15%;
+}
+</style>
+<script>
+	$(document).ready(function(){
+		var bg=['a1.jpg',
+	            'a2.jpg',
+	            'a3.jpg',
+	            'a4.jpg',
+	            'a5.jpg',
+	            'a6.jpg',
+	            'a7.jpg',
+	            'a8.jpg',
+	            'a9.jpg',
+	            'a10.jpg',
+	            'a11.jpg',
+	            'a12.jpg',
+	            'a13.jpg',
+	            'a14.jpg',
+	            'a15.jpg',
+	            'a16.jpg',
+	            'a17.jpg',
+	            'a18.jpg',
+	            'a19.jpg',
+	            'a20.jpg',
+	            'a21.jpg',
+	            'a22.jpg',
+	            'a23.jpg'];
+		var people=['b1.jpg',
+					'b2.jpg',
+	            	'b3.jpg',
+	            	'b4.jpg',
+	            	'b5.jpg',
+	            	'b6.jpg',
+	            	'b7.jpg',
+	            	'b8.jpg',
+	            	'b9.jpg',
+	            	'b10.jpg',
+	            	'b11.jpg',
+	            	'b12.jpg'];					]
+	//$('body').css({'background':bg, 'background-size':'cover', });
+ 	
+ 	var randomNum = Math.floor((Math.random()*23)+1);
+	$('#my_image').attr('src', '../bgPics' + 'a' + randomNum + '.jpg');
+ 	//this will set the count at 0
+ 	var count = 0
+	$('body').click(function(){
+		var image = bg;
+		count += 1;	
+		console.log(count);
+	});
+});
+</script>

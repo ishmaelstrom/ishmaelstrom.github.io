@@ -1,0 +1,208 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<script src="../lib/mousetrap.min.js"></script>
+<script src="../lib/tracery.js"></script>
+<script src="../lib/markov.js"></script>
+<style>
+body{ 
+background: no-repeat center center ; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+h1 {
+	text-align: center;
+	color: 	#FFFFFF;
+	text-shadow: 4px 4px #000000;
+	font-family: Century Gothic;
+	font-size: 4em;
+	margin-top: 15%;
+}
+h2 {
+	text-align: center;
+	color: 	#FFFFFF;
+	text-shadow: 4px 4px #000000;
+	font-family: Arial;
+	font-size: 2em;
+	margin-top: 15%;
+}
+</style>
+<script>
+$(document).ready(function(){
+	var bg=['a1.jpg',
+	            'a2.jpg',
+	            'a3.jpg',
+	            'a4.jpg',
+	            'a5.jpg',
+	            'a6.jpg',
+	            'a7.jpg',
+	            'a8.jpg',
+	            'a9.jpg',
+	            'a10.jpg',
+	            'a11.jpg',
+	            'a12.jpg',
+	            'a13.jpg',
+	            'a14.jpg',
+	            'a15.jpg',
+	            'a16.jpg',
+	            'a17.jpg',
+	            'a18.jpg',
+	            'a19.jpg',
+	            'a20.jpg',
+	            'a21.jpg',
+	            'a22.jpg',
+	            'a23.jpg'];
+
+	var good=['c1.gif',
+	            'c2.gif',
+	            'c3.gif',
+	            'c4.gif',
+	            'c5.gif',
+	            'c6.gif',
+	            'c7.gif',
+	            'c8.gif'];
+
+	var bad =['a1.gif','a2.gif', 'a3.gif'];
+
+	var transition = ['b1.gif','b2.gif','b3.gif','b4.gif','b5.gif','b6.gif',];
+
+	//images = ['suicide3.gif',];
+
+	var quotes=['\"Go confidently in the direction of your dreams.\"',
+	'\"It always seems impossible until it is done.\"',
+	'\"It doesn\'t matter how slowly you go, as long as you do not stop.\"',
+	'\"If you can dream it, you can do it.\"', 
+	'\"I\'d rather attempt to do something great and fail than attempt to do nothing and succeed.\"',
+	'\"Go for it now. The future is promised to no one.\"',
+	'\"A good plan violently executed now is better than a perfect plan executed next week.\"', 
+	'\"Perseverance is failing 19 times and succeeding the 20th.\"', 
+	'\"I know where I\'m going and I know the truth, and I don\'t have to be what you want me to be.\"', 
+	'\"Well done is better than well said.\"', 
+	'\"Do not wait to strike till the iron is hot; but make it hot by striking.\"', 
+	'\"The most effective way to do it, is to do it.\"', 
+	'\"Every exit is an entry somewhere else.\"', 
+	'\"When one must, one can.\"', 
+	'\"Never retreat. Never explain. Get it done and let them howl.\"',
+	'\"How do you know you\'re going to do something, until you do it?\"',
+	'\"Everyday brings new choices.\"', 
+	'\"Believe you can and you\'re halfway there\"',
+	'\"You must never be fearful about what you are doing when it is right.\"',
+	'\"You must find the place inside yourself where nothing is impossible.\"',
+	'\"The question isn\'t who is going to let me; it\'s who is going to stop me.\"',
+	'\"The greatest pleasure in life is doing what people say you cannot do.\"',
+	'\"Caring about the happiness of others, we find our own.\"',];
+
+	var people = ['Henry David Thoreau',
+	'Nelson Mandela',
+	'Confucius',
+	'Walt Disney',
+	'Robert H. Schuller',
+	'Wayne Dyer',
+	'George S. Patton',
+	'Julie Andrews',
+	'Muhammad Ali',
+	'Benjamin Franklin',
+	'William Butler Yeats',
+	'Amelia Earhart',
+	'Tom Stoppard',
+	'Charlotte Whiten',
+	'Benjamin Jowett',
+	'J.D. Salinger',
+	'Martha Beck',
+	'Theodore Roosevelt',
+	'Rosa Parks',
+	'Deepak Chopra',
+	'Ayn Rand',
+	'Walter Bagehot',
+	'Plato'];
+
+	var grammarObj = {
+    "firstName": ["Aaliyah", "Aaron", "Abby", "Abigail", "Abraham", "Adam", "Addison", "Adrian", "Adriana", "Adrianna", "Aidan", "Aiden", "Alan", "Alana", "Alejandro", "Alex", "Alexa", "Alexander", "Alexandra", "Alexandria", "Alexia", "Alexis", "Alicia", "Allison", "Alondra", "Alyssa", "Amanda", "Amber", "Amelia", "Amy", "Ana", "Andrea", "Andres", "Andrew", "Angel", "Angela", "Angelica", "Angelina", "Anna", "Anthony", "Antonio", "Ariana", "Arianna", "Ashley", "Ashlyn", "Ashton", "Aubrey", "Audrey", "Austin", "Autumn", "Ava", "Avery", "Ayden", "Bailey", "Benjamin", "Bianca", "Blake", "Braden", "Bradley", "Brady", "Brandon", "Brayden", "Breanna", "Brendan", "Brian", "Briana", "Brianna", "Brittany", "Brody", "Brooke", "Brooklyn", "Bryan", "Bryce", "Bryson", "Caden", "Caitlin", "Caitlyn", "Caleb", "Cameron", "Camila", "Carlos", "Caroline", "Carson", "Carter", "Cassandra", "Cassidy", "Catherine", "Cesar", "Charles", "Charlotte", "Chase", "Chelsea", "Cheyenne", "Chloe", "Christian", "Christina", "Christopher", "Claire", "Cody", "Colby", "Cole", "Colin", "Collin", "Colton", "Conner", "Connor", "Cooper", "Courtney", "Cristian", "Crystal", "Daisy", "Dakota", "Dalton", "Damian", "Daniel", "Daniela", "Danielle", "David", "Delaney", "Derek", "Destiny", "Devin", "Devon", "Diana", "Diego", "Dominic", "Donovan", "Dylan", "Edgar", "Eduardo", "Edward", "Edwin", "Eli", "Elias", "Elijah", "Elizabeth", "Ella", "Ellie", "Emily", "Emma", "Emmanuel", "Eric", "Erica", "Erick", "Erik", "Erin", "Ethan", "Eva", "Evan", "Evelyn", "Faith", "Fernando", "Francisco", "Gabriel", "Gabriela", "Gabriella", "Gabrielle", "Gage", "Garrett", "Gavin", "Genesis", "George", "Gianna", "Giovanni", "Giselle", "Grace", "Gracie", "Grant", "Gregory", "Hailey", "Haley", "Hannah", "Hayden", "Hector", "Henry", "Hope", "Hunter", "Ian", "Isaac", "Isabel", "Isabella", "Isabelle", "Isaiah", "Ivan", "Jack", "Jackson", "Jacob", "Jacqueline", "Jada", "Jade", "Jaden", "Jake", "Jalen", "James", "Jared", "Jasmin", "Jasmine", "Jason", "Javier", "Jayden", "Jayla", "Jazmin", "Jeffrey", "Jenna", "Jennifer", "Jeremiah", "Jeremy", "Jesse", "Jessica", "Jesus", "Jillian", "Jocelyn", "Joel", "John", "Johnathan", "Jonah", "Jonathan", "Jordan", "Jordyn", "Jorge", "Jose", "Joseph", "Joshua", "Josiah", "Juan", "Julia", "Julian", "Juliana", "Justin", "Kaden", "Kaitlyn", "Kaleb", "Karen", "Karina", "Kate", "Katelyn", "Katherine", "Kathryn", "Katie", "Kayla", "Kaylee", "Kelly", "Kelsey", "Kendall", "Kennedy", "Kenneth", "Kevin", "Kiara", "Kimberly", "Kyle", "Kylee", "Kylie", "Landon", "Laura", "Lauren", "Layla", "Leah", "Leonardo", "Leslie", "Levi", "Liam", "Liliana", "Lillian", "Lilly", "Lily", "Lindsey", "Logan", "Lucas", "Lucy", "Luis", "Luke", "Lydia", "Mackenzie", "Madeline", "Madelyn", "Madison", "Makayla", "Makenzie", "Malachi", "Manuel", "Marco", "Marcus", "Margaret", "Maria", "Mariah", "Mario", "Marissa", "Mark", "Martin", "Mary", "Mason", "Matthew", "Max", "Maxwell", "Maya", "Mckenzie", "Megan", "Melanie", "Melissa", "Mia", "Micah", "Michael", "Michelle", "Miguel", "Mikayla", "Miranda", "Molly", "Morgan", "Mya", "Naomi", "Natalia", "Natalie", "Nathan", "Nathaniel", "Nevaeh", "Nicholas", "Nicolas", "Nicole", "Noah", "Nolan", "Oliver", "Olivia", "Omar", "Oscar", "Owen", "Paige", "Parker", "Patrick", "Paul", "Payton", "Peter", "Peyton", "Preston", "Rachel", "Raymond", "Reagan", "Rebecca", "Ricardo", "Richard", "Riley", "Robert", "Ruby", "Ryan", "Rylee", "Sabrina", "Sadie", "Samantha", "Samuel", "Sara", "Sarah", "Savannah", "Sean", "Sebastian", "Serenity", "Sergio", "Seth", "Shane", "Shawn", "Shelby", "Sierra", "Skylar", "Sofia", "Sophia", "Sophie", "Spencer", "Stephanie", "Stephen", "Steven", "Summer", "Sydney", "Tanner", "Taylor", "Thomas", "Tiffany", "Timothy", "Travis", "Trenton", "Trevor", "Trinity", "Tristan", "Tyler", "Valeria", "Valerie", "Vanessa", "Veronica", "Victor", "Victoria", "Vincent", "Wesley", "William", "Wyatt", "Xavier", "Zachary", "Zoe", "Zoey"],
+    "lastName": ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Perez", "Hall", "Young", "Allen", "Sanchez", "Wright", "King", "Scott", "Green", "Baker", "Adams", "Nelson", "Hill", "Ramirez", "Campbell", "Mitchell", "Roberts", "Carter", "Phillips", "Evans", "Turner", "Torres", "Parker", "Collins", "Edwards", "Stewart", "Flores", "Morris", "Nguyen", "Murphy", "Rivera", "Cook", "Rogers", "Morgan", "Peterson", "Cooper", "Reed", "Bailey", "Bell", "Gomez", "Kelly", "Howard", "Ward", "Cox", "Diaz", "Richardson", "Wood", "Watson", "Brooks", "Bennett", "Gray", "James", "Reyes", "Cruz", "Hughes", "Price", "Myers", "Long", "Foster", "Sanders", "Ross", "Morales", "Powell", "Sullivan", "Russell", "Ortiz", "Jenkins", "Gutierrez", "Perry", "Butler", "Barnes", "Fisher", "Henderson", "Coleman", "Simmons", "Patterson", "Jordan", "Reynolds", "Hamilton", "Graham", "Kim", "Gonzales", "Alexander", "Ramos", "Wallace", "Griffin", "West", "Cole", "Hayes", "Chavez", "Gibson", "Bryant", "Ellis", "Stevens", "Murray", "Ford", "Marshall", "Owens", "Mcdonald", "Harrison", "Ruiz", "Kennedy", "Wells", "Alvarez", "Woods", "Mendoza", "Castillo", "Olson", "Webb", "Washington", "Tucker", "Freeman", "Burns", "Henry", "Vasquez", "Snyder", "Simpson", "Crawford", "Jimenez", "Porter", "Mason", "Shaw", "Gordon", "Wagner", "Hunter", "Romero", "Hicks", "Dixon", "Hunt", "Palmer", "Robertson", "Black", "Holmes", "Stone", "Meyer", "Boyd", "Mills", "Warren", "Fox", "Rose", "Rice", "Moreno", "Schmidt", "Patel", "Ferguson", "Nichols", "Herrera", "Medina", "Ryan", "Fernandez", "Weaver", "Daniels", "Stephens", "Gardner", "Payne", "Kelley", "Dunn", "Pierce", "Arnold", "Tran", "Spencer", "Peters", "Hawkins", "Grant", "Hansen", "Castro", "Hoffman", "Hart", "Elliott", "Cunningham", "Knight", "Bradley"],
+    "teamName": ["#firstName# #lastName#"],
+    "origin": ["#[hero:#name#][heroPet:#animal#]story#"]
+}
+var grammar = tracery.createGrammar(grammarObj)
+function teamGenerate(){
+	var team = grammar.flatten("#teamName#");
+	$('h1').text(team);
+}
+	var imNum = Math.floor(Math.random() * bg.length);
+	var bgImg = 'url(' + bg[imNum] + ')';
+	var qNum = Math.floor(Math.random() * quotes.length);
+	var imPrev = imNum;
+	var qPrev = qNum;
+	$('body').css({'background':bgImg, 'background-size':'cover', });
+	$('h1').html(quotes[qNum] + "<br><br>" + "<span style=\"font-size: 0.8em;\">" + "-" + people[qNum] + "</span>") ;
+	var count = 0
+	$('body').click(function(){
+		var images = good;
+			if (count > 150) {
+				window.location.replace("http://suicidepreventionlifeline.org/");
+			}
+			else if (count > 130) {
+			 	images = transition;
+			 	if(Math.floor(Math.random() * 5) <= 2) {
+			 		images = bad;
+			 	}
+			}
+			else if (count > 105) {
+			 	if(Math.floor(Math.random() * 5) <= 4) {
+			 		images = transition;
+			 	}
+			}
+			else if (count > 90) {
+			 	if(Math.floor(Math.random() * 5) <= 3) {
+			 		images = transition;
+			 	}
+			}
+		 	else if (count > 75) {
+			 	if(Math.floor(Math.random() * 5) <= 2) {
+			 		images = transition;
+			 	}
+			}
+			else if (count > 60){
+			 	if(Math.floor(Math.random() * 5) <= 1) {
+			 		images = transition;
+			 	}
+			}
+			else if (count > 45) {
+			 	if(Math.floor(Math.random() * 5) <= 0) {
+			 		images = transition;
+			 	}
+			 	else if(Math.floor(Math.random() * 5) <= 0) {
+			 		images = bg;
+				}
+			}
+			else if (count > 2) {
+			 
+				if(Math.floor(Math.random() * 5) <= 1) {
+			 		images = bg;
+				}
+			}
+			else if (count == 1) {
+					teamGenerate();
+			 		images = bg;
+			 	}
+			}
+			else {
+				images = bg;
+			}	
+		while (imNum == imPrev) {
+			imNum = Math.floor(Math.random() * images.length);
+		}
+		imPrev = imNum;
+		var bgImg = 'url(' + images[imNum] + ')';
+		while (qNum == qPrev) {
+			qNum = Math.floor(Math.random() * quotes.length);
+		}
+		qPrev = qNum;
+  		$('body').css({'background':bgImg, 'background-size':'cover', });
+  		$('h1').html(quotes[qNum] + "<br><br>" + "<span style=\"font-size: 0.8em;\">" + "-"+ people[qNum] + "</span>") ;
+  		count += 1;
+  		console.log(count);
+	});
+});
+
+</script>
