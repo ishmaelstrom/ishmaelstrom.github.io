@@ -1,0 +1,75 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<audio src="summerDays.mp3" preload></audio>
+<html>
+<head>
+    <style type="text/css">
+        html { 
+  background: url(toronto.gif) no-repeat center center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+        h1 {
+    text-align: center;
+    color: darkcyan;
+    font-family: Courier New;
+    font-size: 2em;
+    margin-top: 4%;
+}
+        h2 {
+    text-align: center;
+    color: firebrick;
+    font-family: Impact;
+    font-size: 700%;
+    margin-top: 1%;
+        }
+    </style>
+   <script type="text/javascript">
+        $('audio')[0].play()
+       function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 3,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+
+   </script>
+    <title>Grapes to Gravy</title>
+
+</head>
+<h1>Write a poem</br>with what you hear</br></br></br></br>You have:</br></h1>
+<h2><span id="time"></span> minutes</h2>
+<body>
+
+</body>
+</html>
