@@ -1,0 +1,38 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<style type="text/css">
+	body{
+		background-color: #008080;
+	}
+	#wrapper{
+		display: table;
+    	height: 800px;
+    	width: 1580px;
+	}
+	#cell{
+		display: table-cell;
+    	vertical-align: middle;
+    	text-align:center;
+	}
+	</style>
+<div id="wrapper">
+	<div id="cell">
+		<audio class="msg" controls preload="none"> 
+   		<source src="keston1_3_21.mp3" type="audio/mpeg">
+		</audio>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(".msg").trigger('load');
+//starts playing
+$(".msg").trigger('play');
+//pause playing
+$(".msg").trigger('pause');
+
+function stopAudio(){
+  //pause playing
+  $(".msg").trigger('pause');
+  //set play time to 0
+  $(".msg").prop("currentTime",0);
+}
+</script>

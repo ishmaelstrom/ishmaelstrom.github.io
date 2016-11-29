@@ -1,0 +1,16 @@
+<script src="../lib/jquery-1.11.1.min.js"></script>
+<audio src="kimball3_11_24.mp3" preload></audio>
+<h1>glork</h1>
+<script type="text/javascript">	
+	// $('audio')[0].play()
+	$('audio').click(function() {
+  if (this.paused == false) {
+      this.pause();
+      alert('music paused');
+  } else {
+      this.play();
+      alert('music playing');
+  }
+});
+    
+</script>
